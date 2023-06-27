@@ -64,7 +64,7 @@ model users {
     district      String?    
     cep           String?  
     adm           Boolean   @default(false)
-    role          String    @default("client")  
+    role          Int       @default(1)  
     ip            String    @default("0.0.0.0")
     contracts     contracts[]
     logs          logs[]
