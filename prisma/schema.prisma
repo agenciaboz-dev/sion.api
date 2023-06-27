@@ -10,6 +10,7 @@ datasource db {
 model contracts {
     id          Int      @id @default(autoincrement())
     unit        String   @unique(map: "unit")
+    subunits    String?  @db.Text
     date        DateTime @db.Date
     ip          String
     pessoa      String   
@@ -61,8 +62,9 @@ model users {
     address       String?    
     number        String?    
     district      String?    
-    cep           String?    
+    cep           String?  
     adm           Boolean   @default(false)
+    role          String    @default("client")  
     ip            String    @default("0.0.0.0")
     contracts     contracts[]
     logs          logs[]
