@@ -143,5 +143,7 @@ model contractStatus {
 model boards {
     id              Int         @id @default(autoincrement())
     columns         String      @db.Text
+    // [{"name": "Aguardando", "status": 1}, {"name": "Aprovados", "status": 3}]
     name            String
+    access          Int         @default(0)
 }
