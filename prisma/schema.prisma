@@ -32,6 +32,7 @@ model contracts {
     rg          String?
     filename    String?
     signatures  String?   
+    status      Int      @default(0)   
     active      Boolean  @default(false)
     archived    Boolean  @default(false)
     reproved    Boolean  @default(false)
