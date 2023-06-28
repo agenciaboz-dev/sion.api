@@ -39,6 +39,11 @@ router.post("/search", async (request: Request, response: Response) => {
     response.json(contracts)
 })
 
+router.get("/status", async (request: Request, response: Response) => {
+    const status = await prisma.contractStatus.findMany({ include: { contracts: true } })
+    response.json(status)
+})
+
 router.post("/archive", async (request: Request, response: Response) => {
     const data = request.body
 
