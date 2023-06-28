@@ -32,7 +32,8 @@ model contracts {
     rg          String?
     filename    String?
     signatures  String?   
-    status      Int      @default(0)   
+    status      contractStatus? @relation(fields: [statusId], references: [id])  
+    statusId    Int?          
     active      Boolean  @default(false)
     archived    Boolean  @default(false)
     reproved    Boolean  @default(false)
@@ -131,4 +132,16 @@ model images {
     user            users       @relation(fields: [user_id], references: [id])
     user_id         Int         @default(2)
     size            String      @default("1280x720")
+}
+
+model contractStatus {
+    id              Int         @id @default(autoincrement())
+    name            String
+    contracts       contracts[]
+}
+
+model boards {
+    id              Int         @id @default(autoincrement())
+    columns         String      @db.Text
+    name            String
 }
