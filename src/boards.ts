@@ -8,4 +8,18 @@ router.get("/", async (request: Request, response: Response) => {
     response.json(boards)
 })
 
+router.post("/new", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const board = await prisma.boards.create({
+        data: {
+            name: data.name,
+            access: data.access,
+            columns: data.columns,
+        },
+    })
+
+    response.json(board)
+})
+
 export default router
