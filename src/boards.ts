@@ -20,6 +20,16 @@ router.post("/status", async (request: Request, response: Response) => {
     response.json(status)
 })
 
+router.post("/delete", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const board = await prisma.boards.delete({
+        where: { id: data.id },
+    })
+
+    response.json(board)
+})
+
 router.post("/new", async (request: Request, response: Response) => {
     const data = request.body
 
@@ -28,8 +38,6 @@ router.post("/new", async (request: Request, response: Response) => {
             name: data.name,
             access: data.access,
             columns: data.columns,
-            inputColumn: data.inputColumn,
-            nextBoardId: data.nextBoardId,
         },
     })
 

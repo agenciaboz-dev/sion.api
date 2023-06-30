@@ -146,6 +146,4 @@ model boards {
     // [{"name": "Aguardando", "status": 1}, {"name": "Aprovados", "status": 3}]
     name            String
     access          Int         @default(0)
-    inputColumn     Int         @default(1)
-    nextBoardId     Int?
 }
