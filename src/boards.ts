@@ -20,6 +20,21 @@ router.post("/status", async (request: Request, response: Response) => {
     response.json(status)
 })
 
+router.post("/update", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const board = await prisma.boards.update({
+        where: { id: data.id },
+        data: {
+            name: data.name,
+            access: data.access,
+            columns: data.columns,
+        },
+    })
+
+    response.json(board)
+})
+
 router.post("/delete", async (request: Request, response: Response) => {
     const data = request.body
 
