@@ -8,6 +8,18 @@ router.get("/", async (request: Request, response: Response) => {
     response.json(boards)
 })
 
+router.post("/status", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const status = await prisma.contractStatus.create({
+        data: {
+            name: data.name,
+        },
+    })
+
+    response.json(status)
+})
+
 router.post("/new", async (request: Request, response: Response) => {
     const data = request.body
 
