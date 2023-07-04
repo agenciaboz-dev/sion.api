@@ -50,6 +50,7 @@ router.post("/set_status", async (request: Request, response: Response) => {
     const contract = await prisma.contracts.update({
         where: { id: data.id },
         data: { statusId: data.status },
+        include: { seller: true, status: true },
     })
 
     response.json(contract)
