@@ -20,6 +20,17 @@ router.post("/status", async (request: Request, response: Response) => {
     response.json(status)
 })
 
+router.post("/status/update", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const status = await prisma.contractStatus.update({
+        where: { id: data.id },
+        data: { name: data.name },
+    })
+
+    response.json(status)
+})
+
 router.post("/update", async (request: Request, response: Response) => {
     const data = request.body
 
