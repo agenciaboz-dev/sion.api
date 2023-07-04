@@ -31,6 +31,16 @@ router.post("/status/update", async (request: Request, response: Response) => {
     response.json(status)
 })
 
+router.post("/status/delete", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const status = await prisma.contractStatus.delete({
+        where: { id: data.id },
+    })
+
+    response.json(status)
+})
+
 router.post("/update", async (request: Request, response: Response) => {
     const data = request.body
 
