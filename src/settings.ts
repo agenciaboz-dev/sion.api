@@ -17,9 +17,9 @@ router.post("/rate", async (request: Request, response: Response) => {
 })
 
 router.get("/whatsapp", async (request: Request, response: Response) => {
-    const status = whatsapp.getState()
+    const info = whatsapp.info
     const qrcode = whatsappQrCode
-    response.json({ status, qrcode })
+    response.json({ info, qrcode })
 })
 
 export default router
