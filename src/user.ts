@@ -22,7 +22,18 @@ router.post("/update", async (request: Request, response: Response) => {
     const data = request.body
 
     const user = await prisma.users.update({
-        data: { name: data.name, phone: data.phone },
+        data: {
+            name: data.name,
+            phone: data.phone,
+            address: data.address,
+            birth: data.birth,
+            cep: data.cep,
+            cpf: data.cpf,
+            district: data.district,
+            email: data.email,
+            number: data.number,
+            role: data.role,
+        },
         where: { id: data.id },
         include: { contracts: { include: { seller: true } } },
     })
