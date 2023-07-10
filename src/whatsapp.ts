@@ -1,6 +1,8 @@
 import qrcode from "qrcode-terminal"
 import { Client, LocalAuth } from "whatsapp-web.js"
 
+export let whatsappQrCode = ""
+
 export const whatsapp = new Client({
     authStrategy: new LocalAuth({ dataPath: "whatsapp.auth" }),
     puppeteer: {
@@ -9,6 +11,7 @@ export const whatsapp = new Client({
 })
 
 whatsapp.on("qr", (qr) => {
+    whatsappQrCode = qr
     qrcode.generate(qr, { small: true })
 })
 
