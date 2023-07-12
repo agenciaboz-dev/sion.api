@@ -10,9 +10,7 @@ import http from "http"
 import fs from "fs"
 import { whatsapp } from "./src/whatsapp"
 import { Server } from "socket.io"
-import { handleBoards } from "./src/io/boards"
-import { handleUsers } from "./src/io/users"
-import { handleStatuses } from "./src/io/statuses"
+import { handleSocket } from "./src/io/socket"
 
 dotenv.config()
 
@@ -40,9 +38,7 @@ try {
 
     const io = new Server(server, { cors: { origin: "*" } })
     io.on("connection", (socket) => {
-        handleBoards(socket)
-        handleUsers(socket)
-        handleStatuses(socket)
+        handleSocket(socket)
     })
 
     server.listen(port, () => {
@@ -53,9 +49,7 @@ try {
     const io = new Server(server, { cors: { origin: "*" } })
 
     io.on("connection", (socket) => {
-        handleBoards(socket)
-        handleUsers(socket)
-        handleStatuses(socket)
+        handleSocket(socket)
     })
 
     server.listen(port, () => {
