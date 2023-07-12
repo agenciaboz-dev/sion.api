@@ -18,4 +18,8 @@ export const handleBoards = (socket: Socket) => {
         console.log(board)
         socket.broadcast.emit("board:remove", board)
     })
+
+    socket.on("disconnect", () => {
+        console.log(`disconnected: ${socket.id}`)
+    })
 }

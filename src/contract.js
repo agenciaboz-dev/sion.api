@@ -7,7 +7,8 @@ import { PrismaClient } from "@prisma/client"
 import { organization as _organization, lead as _lead, sign, closed } from "./rdstation"
 import { signup } from "./omie"
 import { add } from "./weni"
-import { fillForm, updateImage } from "./pdf_handler"
+import { fillForm, updateImage } from "./pdf_handler.js"
+import { default as axios } from "axios"
 
 const prisma = new PrismaClient()
 const mails = {
@@ -58,9 +59,9 @@ router.post("/unit", async (request, response, next) => {
 
     response.json(contract ? { error: "Unidade consumidora já cadastrada" } : { success: true })
 
-    if (!contract) {
+    if (data.seller && !contract) {
         const input = JSON.stringify(data).replaceAll('"', "'")
-        const command = `python3 src/scripts/unit.py "${input}"`
+        const command = `python3 src/unit.py "${input}"`
         console.log(command)
         const output = execSync(command)
         console.log(output.toString())
@@ -79,6 +80,7 @@ router.post("/lead", async (request, response, next) => {
         const contract = await prisma.contracts.create({
             data: {
                 unit: data.unit,
+                subunits: data.subunits,
                 date: data.date,
                 ip: request.ip,
                 pessoa: data.pessoa,
@@ -139,7 +141,7 @@ router.post("/lead", async (request, response, next) => {
         input.mail_subject = "Sion - Novo lead"
         input.mail_list = [mails.leads]
 
-        exec(`python3 src/scripts/send_mail.py "${JSON.stringify(input).replaceAll('"', "'")}"`, (error, stdout, stderr) => {
+        exec(`python3 src/send_mail.py "${JSON.stringify(input).replaceAll('"', "'")}"`, (error, stdout, stderr) => {
             console.log(error)
             console.log(stderr)
             console.log(stdout)
@@ -179,7 +181,7 @@ router.post("/send", async (request, response, next) => {
         data.signing = "client"
 
         const input = JSON.stringify(data).replaceAll('"', "'")
-        exec(`python3 src/scripts/send_contract_mail.py "${input}"`, (error, stdout, stderr) => {
+        exec(`python3 src/send_contract_mail.py "${input}"`, (error, stdout, stderr) => {
             console.log(stdout)
             console.log(error)
             console.log(stderr)
@@ -195,6 +197,8 @@ router.post("/generate", async (request, response, next) => {
 
     const contract = await prisma.contracts.findUnique({ where: { unit: data.unit }, include: { seller: true } })
     // omie.bill(contract)
+
+    console.log(contract)
 
     contract.date = contract.date.toLocaleDateString("pt-BR")
 
@@ -227,9 +231,7 @@ router.post("/generate", async (request, response, next) => {
                 seller_id: contract.seller_id,
                 text: `Operador com email ${contract.seller.email} criou este documento número ${
                     contract.id
-                }. Data limite para assinatura do documento: ${new Date(
-                    new Date().setMonth(data.date.getMonth() + 1)
-                ).toLocaleDateString("pt-BR")}.`,
+                }. Data limite para assinatura do documento: ${new Date(new Date().setMonth(data.date.getMonth() + 1)).toLocaleDateString("pt-BR")}.`,
             },
         })
     )
@@ -239,7 +241,7 @@ router.post("/generate", async (request, response, next) => {
             data: {
                 contract_id: contract.id,
                 seller_id: contract.seller_id,
-                text: `Operador com email ${contract.seller.email} adicionou à Lista de Assinatura:  ${contract.email} para assinar como parte, via E-mail, com os pontos de autenticação: Token via E-mail; Nome Completo; CPF; Biometria Facial; Endereço de IP.`,
+                text: `Operador com email ${contract.seller.email} adicionou à Lista de Assinatura:  ${contract.email} para assinar como parte, via E-mail, com os pontos de autenticação: Token via E-mail; Nome Completo; CPF; Documentação; Endereço de IP.`,
             },
         })
     )
@@ -249,7 +251,7 @@ router.post("/generate", async (request, response, next) => {
             data: {
                 contract_id: contract.id,
                 seller_id: contract.seller_id,
-                text: `Operador com email ${contract.seller.email} adicionou à Lista de Assinatura:  ${mails.contract} para assinar como parte, via E-mail, com os pontos de autenticação: Token via E-mail; Nome Completo; CPF; Biometria Facial; Endereço de IP.`,
+                text: `Operador com email ${contract.seller.email} adicionou à Lista de Assinatura:  ${mails.contract} para assinar como parte, via E-mail, com os pontos de autenticação: Token via E-mail; Nome Completo; CPF; Documentação; Endereço de IP.`,
             },
         })
     )
@@ -259,7 +261,7 @@ router.post("/generate", async (request, response, next) => {
             data: {
                 contract_id: contract.id,
                 seller_id: contract.seller_id,
-                text: `Operador com email ${contract.seller.email} adicionou à Lista de Assinatura:  ${contract.seller.email} para assinar como testemunha, via E-mail, com os pontos de autenticação: Token via E-mail; Nome Completo; CPF; Biometria Facial; Endereço de IP.`,
+                text: `Operador com email ${contract.seller.email} adicionou à Lista de Assinatura:  ${contract.seller.email} para assinar como testemunha, via E-mail, com os pontos de autenticação: Token via E-mail; Nome Completo; CPF; Documentação; Endereço de IP.`,
             },
         })
     )
@@ -272,13 +274,17 @@ router.post("/generate", async (request, response, next) => {
     const fields = []
     // mapping contract to build every field from it's keys
     Object.entries(contract).map(([key, value]) => {
-        fields.push({ name: key, value })
+        if (key == "unit") {
+            fields.push({ name: key, value: `${contract.unit}${contract.subunits ? ", " + contract.subunits : ""}` })
+        } else {
+            fields.push({ name: key, value })
+        }
     })
     console.log(fields)
 
     // signatures
     fields.push({ name: "sion.name", value: "Sion Energia", bold: true })
-    fields.push({ name: "sion.cpf", value: "CPF: 90667476253" })
+    fields.push({ name: "sion.cpf", value: "CPF: 05003138903" })
     fields.push({ name: "seller.name", value: contract.seller.name, bold: true })
     fields.push({ name: "seller.cpf", value: `CPF: ${contract.seller.cpf}` })
     fields.push({ name: "contract.name", value: contract.name, bold: true })
@@ -298,10 +304,9 @@ router.post("/generate", async (request, response, next) => {
         })
     })
 
-    const filename = `documents/sion/${contract.unit}/Contrato-${(contract.company || contract.name).replace(
-        / /g,
-        ""
-    )}-${data.date.toLocaleDateString("pt-BR").replace(/\//g, "_")}.pdf`
+    const filename = `documents/sion/${contract.unit}/Contrato-${(contract.company || contract.name).replace(/ /g, "")}-${data.date
+        .toLocaleDateString("pt-BR")
+        .replace(/\//g, "_")}.pdf`
 
     // filling pdf form
     await fillForm({
@@ -312,7 +317,7 @@ router.post("/generate", async (request, response, next) => {
     })
 
     const input = JSON.stringify(contract).replaceAll('"', "'")
-    exec(`python3 src/scripts/upload.py "${input}"`, (error, stdout, stderr) => {
+    exec(`python3 src/upload.py "${input}"`, (error, stdout, stderr) => {
         console.log(stdout)
     })
 
@@ -350,7 +355,7 @@ router.post("/confirm", async (request, response, next) => {
         contract.signed = signatures.includes(contract.seller.email)
         if (
             contract.seller.cpf != data.document ||
-            contract.seller.name != data.name ||
+            contract.seller.name.trim().toLowerCase() != data.name.trim().toLowerCase() ||
             new Date(contract.seller.birth).getTime() != data.birth
         )
             contract = null
@@ -364,7 +369,7 @@ router.post("/confirm", async (request, response, next) => {
         console.log(new Date(contract.birth).getTime())
         if (
             (contract.cpf != data.document && contract.cnpj != data.document) ||
-            contract.name != data.name ||
+            contract.name.trim().toLowerCase() != data.name.trim().toLowerCase() ||
             new Date(contract.birth).getTime() != data.birth
         )
             contract = null
@@ -379,11 +384,20 @@ router.post("/confirm", async (request, response, next) => {
         contract.template = "token"
         contract.mail_subject = contract.token + " - Token de autenticação - Sion - Contrato"
         const input = JSON.stringify(contract).replaceAll('"', "'")
-        exec(`python3 src/scripts/send_mail.py "${input}"`, (error, stdout, stderr) => {
+        exec(`python3 src/send_mail.py "${input}"`, (error, stdout, stderr) => {
             console.log(stdout)
             console.log(error)
             console.log(stderr)
         })
+
+        if (data.signing == "client") {
+            axios
+                .post("https://app.agenciaboz.com.br:4101/api/whatsapp/token", {
+                    number: contract.phone,
+                    token: contract.token,
+                })
+                .then((response) => console.log(response.data))
+        }
 
         const uploadsDir = `documents/sion/${contract.unit}`
         if (!existsSync(uploadsDir)) {
@@ -405,7 +419,7 @@ router.post("/confirm", async (request, response, next) => {
 
         const upload_input = JSON.stringify(contract).replaceAll('"', "'")
 
-        exec(`python3 src/scripts/upload_file.py "${upload_input}"`, (error, stdout, stderr) => {
+        exec(`python3 src/upload_file.py "${upload_input}"`, (error, stdout, stderr) => {
             console.log(stdout)
         })
     }
@@ -446,7 +460,7 @@ router.post("/sign", async (request, response, next) => {
         console.log(`sending contract to ${data.mail_list}`)
         console.log("......")
         const input = JSON.stringify(data).replaceAll('"', "'")
-        exec(`python3 src/scripts/send_contract_mail.py "${input}"`, (error, stdout, stderr) => {
+        exec(`python3 src/send_contract_mail.py "${input}"`, (error, stdout, stderr) => {
             console.log(stdout)
             console.log(error)
             console.log(stderr)
@@ -456,11 +470,17 @@ router.post("/sign", async (request, response, next) => {
 
         const sign_type = data.signing == "seller" ? "testemunha" : "parte"
 
+        const sign_name = data.signing == "seller" ? contract.seller.name : data.signing == "client" ? contract.name : "Cooperativa Sion"
+
+        const sign_email = data.signing == "seller" ? contract.seller.email : data.signing == "client" ? contract.email : mails.contract
+
+        const sign_cpf = data.signing == "seller" ? contract.seller.cpf : data.signing == "client" ? contract.cpf : "05003138903"
+
         await prisma.logs.create({
             data: {
                 contract_id: contract.id,
                 seller_id: contract.seller_id,
-                text: `${data.name} assinou como ${sign_type}. Pontos de autenticação: Token via E-mail ${data.email} CPF informado: ${data.cpf}. Biometria Facial: https://app.agenciaboz.com.br:4000/${data.biometry}. IP: ${request.ip}.`,
+                text: `${sign_name} assinou como ${sign_type}. Pontos de autenticação: Token via E-mail ${sign_email} CPF informado: ${sign_cpf}. Documentação: https://app.agenciaboz.com.br:4000/${data.biometry}. IP: ${request.ip}.`,
             },
         })
 
@@ -484,9 +504,7 @@ router.post("/sign", async (request, response, next) => {
 
         fields.push({
             name: field_name + ".signed",
-            value: `Assinou como ${sign_type} em ${new Date().toLocaleDateString(
-                "pt-BR"
-            )} às ${new Date().toLocaleTimeString("pt-BR")}`,
+            value: `Assinou como ${sign_type} em ${new Date().toLocaleDateString("pt-BR")} às ${new Date().toLocaleTimeString("pt-BR")}`,
         })
 
         await updateImage({
@@ -528,7 +546,7 @@ router.post("/sign", async (request, response, next) => {
         contract.upload_file = contract.filename
         const upload_input = JSON.stringify(contract).replaceAll('"', "'")
 
-        exec(`python3 src/scripts/upload_file.py "${upload_input}"`, (error, stdout, stderr) => {
+        exec(`python3 src/upload_file.py "${upload_input}"`, (error, stdout, stderr) => {
             console.log(stdout)
             console.log(stderr)
         })

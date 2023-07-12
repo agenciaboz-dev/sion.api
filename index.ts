@@ -11,6 +11,8 @@ import fs from "fs"
 import { whatsapp } from "./src/whatsapp"
 import { Server } from "socket.io"
 import { handleBoards } from "./src/io/boards"
+import { handleUsers } from "./src/io/users"
+import { handleStatuses } from "./src/io/statuses"
 
 dotenv.config()
 
@@ -37,7 +39,11 @@ try {
     )
 
     const io = new Server(server, { cors: { origin: "*" } })
-    io.on("connection", handleBoards)
+    io.on("connection", (socket) => {
+        handleBoards(socket)
+        handleUsers(socket)
+        handleStatuses(socket)
+    })
 
     server.listen(port, () => {
         console.log(`[server]: Server is running at https ${port}`)
@@ -46,7 +52,11 @@ try {
     const server = http.createServer(app)
     const io = new Server(server, { cors: { origin: "*" } })
 
-    io.on("connection", handleBoards)
+    io.on("connection", (socket) => {
+        handleBoards(socket)
+        handleUsers(socket)
+        handleStatuses(socket)
+    })
 
     server.listen(port, () => {
         console.log(`[server]: Server is running at http ${port}`)

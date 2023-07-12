@@ -1,7 +1,6 @@
 import express from "express"
 import login from "./src/login"
 import contract from "./src/contract"
-import signup from "./src/signup"
 import viacep from "./src/viacep"
 import contracts from "./src/contracts"
 import user from "./src/user"
@@ -36,3 +35,7 @@ router.post("/cep", (request, response, next) => {
         response.json(address)
     })
 })
+
+// v1
+
+router.use("/contract", contract)
