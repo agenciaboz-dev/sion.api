@@ -91,6 +91,7 @@ router.post("/new", async (request: Request, response: Response) => {
             phone: data.phone,
             rg: data.rg,
         },
+        include: { contracts: { include: { seller: true } } },
     })
 
     response.json(user)
