@@ -6,8 +6,11 @@ import { router } from "./routes"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 import https from "https"
+import http from "http"
 import fs from "fs"
 import { whatsapp } from "./src/whatsapp"
+import { Server } from "socket.io"
+import { handleBoards } from "./src/io/boards"
 
 dotenv.config()
 
@@ -33,11 +36,19 @@ try {
         app
     )
 
+    const io = new Server(server, { cors: { origin: "*" } })
+    io.on("connection", handleBoards)
+
     server.listen(port, () => {
         console.log(`[server]: Server is running at https ${port}`)
     })
 } catch {
-    app.listen(port, () => {
+    const server = http.createServer(app)
+    const io = new Server(server, { cors: { origin: "*" } })
+
+    io.on("connection", handleBoards)
+
+    server.listen(port, () => {
         console.log(`[server]: Server is running at http ${port}`)
     })
 }
