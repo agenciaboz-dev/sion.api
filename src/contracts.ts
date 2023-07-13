@@ -28,6 +28,17 @@ router.post("/seller", async (request: Request, response: Response) => {
     response.json(contracts)
 })
 
+router.post("/set_seller", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const contract = await prisma.contracts.update({
+        where: { id: data.contract.id },
+        data: { seller_id: data.seller_id },
+    })
+
+    response.json(contract)
+})
+
 router.post("/search", async (request: Request, response: Response) => {
     const data = request.body
 

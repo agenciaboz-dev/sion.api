@@ -72,6 +72,7 @@ model users {
     logs          logs[]
     texts         texts[]
     images        images[]
+    userLogs      userLogs[]
 }
 
 model financial {
@@ -112,6 +113,14 @@ model logs {
     contract_id     Int          
     seller          users       @relation(fields: [seller_id], references: [id])
     seller_id       Int         
+}
+
+model userLogs {
+    id              Int         @id @default(autoincrement())
+    user            users       @relation(fields: [user_id], references: [id])
+    user_id         Int  
+    text            String      @db.Text
+    date            DateTime
 }
 
 model texts {
