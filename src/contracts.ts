@@ -34,6 +34,7 @@ router.post("/set_seller", async (request: Request, response: Response) => {
     const contract = await prisma.contracts.update({
         where: { id: data.contract.id },
         data: { seller_id: data.seller_id },
+        include: { seller: true, status: true },
     })
 
     response.json(contract)
