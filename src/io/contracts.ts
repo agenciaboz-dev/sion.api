@@ -8,9 +8,9 @@ interface ContractBag {
 }
 
 export const handleContracts = (socket: Socket) => {
-    socket.on("contract:new", (data: ContractBag) => {
-        const { contract, user_id } = data
-        console.log({ contract, user_id })
+    socket.on("contract:new", (data: contracts) => {
+        const contract = data
+        const user_id = contract.seller_id
         if (!contract) return
         socket.broadcast.emit("contract:new", contract)
         log(`Contrato ${contract.name} criado`, user_id)
