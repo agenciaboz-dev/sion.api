@@ -16,7 +16,8 @@ router.post("/", async (request: Request, response: Response) => {
     </div>
     `
 
-    sendMail("fernando@agenciaboz.com.br", "Lead Sion", JSON.stringify(data, null, 4), html)
+    const mail = await sendMail("fernando@agenciaboz.com.br", "Lead Sion", JSON.stringify(data, null, 4), html)
+    response.json(mail)
 })
 
 export default router

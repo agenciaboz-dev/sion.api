@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
     },
 })
 
-export const sendMail = (destination: string, subject: string, text?: string, html?: string) => {
+export const sendMail = async (destination: string, subject: string, text?: string, html?: string) => {
     const mailOptions: Mail.Options = {
         from: "Cooperativa Sion - <noreply@cooperativasion.com.br>",
         to: destination,
@@ -24,8 +24,6 @@ export const sendMail = (destination: string, subject: string, text?: string, ht
         text,
     }
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) console.log(error)
-        console.log(info)
-    })
+    const response = await transporter.sendMail(mailOptions)
+    return response
 }
