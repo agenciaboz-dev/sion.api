@@ -10,6 +10,7 @@ import images from "./src/images"
 import boards from "./src/boards"
 import send_whatsapp from "./src/send_whatsapp"
 import logs from "./src/logs"
+import lead from "./src/lead"
 
 export const router = express.Router()
 
@@ -28,6 +29,7 @@ router.use("/images", images)
 router.use("/whatsapp", send_whatsapp)
 router.use("/boards", boards)
 router.use("/logs", logs)
+router.use("/lead", lead)
 
 router.post("/cep", (request, response, next) => {
     const data = request.body
