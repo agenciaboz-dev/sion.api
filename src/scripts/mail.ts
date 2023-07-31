@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendMail = async (destination: string, subject: string, text?: string, html?: string) => {
     const mailOptions: Mail.Options = {
-        from: "Cooperativa Sion - <noreply@cooperativasion.com.br>",
+        from: "Cooperativa Sion <noreply@cooperativasion.com.br>",
         to: destination,
         subject,
         html,

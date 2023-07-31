@@ -16,7 +16,7 @@ router.post("/", async (request: Request, response: Response) => {
     </div>
     `
 
-    const mail = await sendMail("fernando@agenciaboz.com.br", "Lead Sion", JSON.stringify(data, null, 4), html)
+    const mail = await sendMail("cooperativa@sionenergia.com.br", "Novo contato pelo site", JSON.stringify(data, null, 4), html)
     response.json(mail)
 })
 
