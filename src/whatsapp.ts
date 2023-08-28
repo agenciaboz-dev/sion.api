@@ -18,3 +18,7 @@ whatsapp.on("qr", (qr) => {
 whatsapp.on("ready", () => {
     console.log("whatsapp client is ready")
 })
+
+whatsapp.on("auth_failure", (message) => {
+    console.log(`fail: ${message}`)
+})
