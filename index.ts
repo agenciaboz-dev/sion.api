@@ -10,7 +10,7 @@ import http from "http"
 import fs from "fs"
 import { whatsapp } from "./src/whatsapp"
 import { Server } from "socket.io"
-import { handleSocket } from "./src/io/socket"
+import { getIoInstance, handleSocket, initializeIoServer } from "./src/io/socket"
 
 dotenv.config()
 
@@ -36,7 +36,9 @@ try {
         app
     )
 
-    const io = new Server(server, { cors: { origin: "*" } })
+    initializeIoServer(server)
+    const io = getIoInstance()
+
     io.on("connection", (socket) => {
         handleSocket(socket)
     })
@@ -46,7 +48,9 @@ try {
     })
 } catch {
     const server = http.createServer(app)
-    const io = new Server(server, { cors: { origin: "*" } })
+
+    initializeIoServer(server)
+    const io = getIoInstance()
 
     io.on("connection", (socket) => {
         handleSocket(socket)
