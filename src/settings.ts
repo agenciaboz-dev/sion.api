@@ -19,7 +19,6 @@ router.post("/rate", async (request: Request, response: Response) => {
 router.get("/whatsapp", async (request: Request, response: Response) => {
     const info = whatsapp.info
     console.log(info)
-    console.log(whatsapp)
     const qrcode = whatsappQrCode
     response.json({ info, qrcode })
 })
