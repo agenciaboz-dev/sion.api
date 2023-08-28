@@ -12,7 +12,7 @@ router.post("/id", async (request: Request, response: Response) => {
     const data = request.body
     const contract = await prisma.contracts.findUnique({
         where: { id: Number(data.id) },
-        include: { seller: true, status: true },
+        include: { seller: true, status: true, financial: true },
     })
 
     response.json(contract)
