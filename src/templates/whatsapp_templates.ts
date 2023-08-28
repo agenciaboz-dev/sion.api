@@ -1,5 +1,4 @@
-const token = (token: number | string, name: string, limit: string) =>
-    `TOKEN: ${token} \n *Token de verificação de assinatura* \n \n Utilize o token enviado para confirmar sua assinatura. Por motivos de segurança, ele é válido apenas por 4 horas. \n \n Estará assinando como: \n ${name} \n \n Data limite de assinatura: \n ${limit} \n \n *Não compartilhe esta mensagem* \n Para sua segurança, não encaminhe este e-mail para ninguém.`
+const token = (token: number | string, name: string, limit: string) => `TOKEN: ${token} `
 
 const confirmacao = (company: string, name: string, phone: string, email: string, seller: string, signing: string) =>
     `Sua assinatura foi confirmada. Obrigado! \n \n ${company} \n ${name} \n ${phone} \n ${email} \n ${seller} \n \n *Assinando como:* \n ${signing}`
