@@ -16,6 +16,8 @@ router.post("/token", async (request: Request, response: Response) => {
     const message2 = await whatsapp.sendMessage(number2, templates.token(data.token, data.name, data.limit))
     console.log(message)
     console.log(message2)
+
+    console.log(data.limit)
     response.json({ number1: message.body, number2: message2.body })
 })
 
