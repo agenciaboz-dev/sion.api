@@ -12,10 +12,9 @@ router.post("/token", async (request: Request, response: Response) => {
     const prefix = number.slice(2, 4)
     const number2 = `55${prefix + number.slice(5)}`
 
-    const formatedLimit = data.limit.toLocaleDateString("pt-br")
 
-    const message = await whatsapp.sendMessage(number, templates.token(data.token, data.name, formatedLimit))
-    const message2 = await whatsapp.sendMessage(number2, templates.token(data.token, data.name, formatedLimit))
+    const message = await whatsapp.sendMessage(number, templates.token(data.token, data.name, data.limit))
+    const message2 = await whatsapp.sendMessage(number2, templates.token(data.token, data.name, data.limit))
     console.log(message)
     console.log(message2)
 
