@@ -1,8 +1,12 @@
+import { contracts, users } from "@prisma/client"
+
 const token = (token: number | string, name: string, limit: string) =>
     `TOKEN: ${token}\n*Token de verificação de assinatura*\n\nUtilize o token enviado para confirmar sua assinatura. Por motivos de segurança, ele é válido apenas por 4 horas.\n\nEstará assinando como:\n${name}\n\nData limite de assinatura:\n${limit}\n\n*Não compartilhe esta mensagem*\nPara sua segurança, não encaminhe este e-mail para ninguém.`
 
-const confirmacao = (company: string, name: string, phone: number | string, email: string, seller: string, signing: string) =>
-    `Sua assinatura foi confirmada. Obrigado!\n\nRazão Social: ${company}\nNome do Responsável: ${name}\nTelefone: ${phone}\nE-mail:${email}\nVendedor: ${seller}\n\n*Assinando como:*\n${signing}`
+const confirmacao = (contract: contracts, seller: users, signing: string) =>
+    `Sua assinatura foi confirmada. Obrigado!\n\n${contract.cnpj ? `Razão Social: ${contract.company}\n` : ""}Nome do Responsável: ${
+        contract.name
+    }\nTelefone: ${contract.phone}\nE-mail:${contract.email}\nVendedor: ${seller.name}\n\n*Assinando como:*\n${signing}`
 
 const assine = (signing: string, datelimit: string, link: string, contract: File) =>
     `*Solicitação de Assinatura da Cooperativa Sion*\n\nClique no link abaixo para visualizar o contrato\n\n${link}\n\nEstará assinando como:\n${signing}\n\nData limite de assinatura:\n${datelimit}\n\n*Não compartilhe esta mensagem*\nPara sua segurança, não encaminhe este e-mail para ninguém.` +
