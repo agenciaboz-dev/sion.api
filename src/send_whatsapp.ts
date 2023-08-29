@@ -62,4 +62,23 @@ router.post("/contract", async (request: Request, response: Response) => {
     response.json({ message, message2 })
 })
 
+router.post('/new', async (request:Request, response:Response) => {    
+    const data = request.body
+
+    const [number, number2] = getNumbers(data.number)
+    
+    const contract = await prisma.contracts.findUnique({ where: { id: data.id }, include: { seller: true } })
+
+    if (contract) {
+        const message = await whatsapp.sendMessage(number, templates.cadastrado(contract, contract.seller))
+        const message2 = await whatsapp.sendMessage(number2, templates.cadastrado(contract, contract.seller))
+
+        response.json({ message, message2 })
+    } else {
+        response.json({ error: "contract not found" })
+    }
+})
+
+})
+
 export default router
