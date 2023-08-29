@@ -13,18 +13,18 @@ export const handleContracts = (socket: Socket) => {
         const user_id = contract.seller_id
         if (!contract) return
         socket.broadcast.emit("contract:new", contract)
-        log(`Contrato ${contract.name} criado`, user_id)
+        log(`Contrato ${contract?.name} criado`, user_id)
     })
 
     socket.on("contract:update", (data: ContractBag) => {
         const { contract, user_id } = data
         socket.broadcast.emit("contract:update", contract)
-        log(`Contrato ${contract.name} atualizado`, user_id)
+        log(`Contrato ${contract?.name} atualizado`, user_id)
     })
 
     socket.on("contract:remove", (data: ContractBag) => {
         const { contract, user_id } = data
         socket.broadcast.emit("contract:remove", contract)
-        log(`Contrato ${contract.name} removido`, user_id)
+        log(`Contrato ${contract?.name} removido`, user_id)
     })
 }
