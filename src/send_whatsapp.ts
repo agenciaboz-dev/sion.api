@@ -51,4 +51,15 @@ router.post("/signed", async (request: Request, response: Response) => {
     }
 })
 
+router.post("/contract", async (request: Request, response: Response) => {
+    const data = request.body
+
+    const [number, number2] = getNumbers(data.number)
+
+    const message = await whatsapp.sendMessage(number, templates.assine(data.signing, data.limit, data.link))
+    const message2 = await whatsapp.sendMessage(number2, templates.assine(data.signing, data.limit, data.link))
+
+    response.json({ message, message2 })
+})
+
 export default router
