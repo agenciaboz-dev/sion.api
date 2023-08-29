@@ -29,8 +29,8 @@ router.post("/send", async (request: Request, response: Response) => {
     const data = request.body
     const [number, number2] = getNumbers(data.number)
 
-    const message = await whatsapp.sendMessage(number, data.message)
-    const message2 = await whatsapp.sendMessage(number2, data.message)
+    const message = await whatsapp.sendMessage(number, data.message, { linkPreview: true })
+    const message2 = await whatsapp.sendMessage(number2, data.message, { linkPreview: true })
 
     response.json({ message, message2 })
 })
