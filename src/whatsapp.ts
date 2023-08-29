@@ -29,3 +29,11 @@ whatsapp.on("ready", () => {
 whatsapp.on("auth_failure", (message) => {
     console.log(`fail: ${message}`)
 })
+
+whatsapp.on("disconnected", () => {
+    const io = getIoInstance()
+    whatsappQrCode = ""
+
+    io.emit("zap:disconnected")
+    whatsapp.initialize()
+})
