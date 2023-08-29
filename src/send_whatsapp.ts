@@ -39,7 +39,9 @@ router.post("/signed", async (request: Request, response: Response) => {
     const data = request.body
     const [number, number2] = getNumbers(data.number)
 
-    const contract = await prisma.contracts.findUnique({ where: { id: data.id }, include: { seller: true } })
+    console.log({ data })
+
+    const contract = await prisma.contracts.findUnique({ where: { id: Number(data.id) }, include: { seller: true } })
 
     if (contract) {
         const message = await whatsapp.sendMessage(number, templates.confirmacao(contract, contract.seller, data.signing))
@@ -62,12 +64,12 @@ router.post("/contract", async (request: Request, response: Response) => {
     response.json({ message, message2 })
 })
 
-router.post('/new', async (request:Request, response:Response) => {    
+router.post("/new", async (request: Request, response: Response) => {
     const data = request.body
 
     const [number, number2] = getNumbers(data.number)
-    
-    const contract = await prisma.contracts.findUnique({ where: { id: data.id }, include: { seller: true } })
+
+    const contract = await prisma.contracts.findUnique({ where: { id: Number(data.id) }, include: { seller: true } })
 
     if (contract) {
         const message = await whatsapp.sendMessage(number, templates.cadastrado(contract, contract.seller))
@@ -79,6 +81,5 @@ router.post('/new', async (request:Request, response:Response) => {
     }
 })
 
-})
 
 export default router
