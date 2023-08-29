@@ -6,7 +6,7 @@ const token = (token: number | string, name: string, limit: string) =>
 const confirmacao = (contract: contracts, seller: users, signing: string) =>
     `Sua assinatura foi confirmada. Obrigado!\n\n${contract.cnpj ? `Razão Social: ${contract.company}\n` : ""}Nome do Responsável: ${
         contract.name
-    }\nTelefone: ${contract.phone}\nE-mail:${contract.email}\nVendedor: ${seller.name}\n\n*Assinando como:*\n${signing}`
+    }\nTelefone: ${contract.phone}\nE-mail:${contract.email}\nVendedor: ${seller.name}\n\n*Assinado como:*\n${signing}`
 
 const assine = (signing: string, datelimit: string, link: string) =>
     `*Solicitação de Assinatura da Cooperativa Sion*\n\nClique no link abaixo para visualizar o contrato\n\n${link}\n\nEstará assinando como:\n${signing}\n\nData limite de assinatura:\n${datelimit}\n\n*Não compartilhe esta mensagem*\nPara sua segurança, não encaminhe este e-mail para ninguém.`
