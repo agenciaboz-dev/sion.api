@@ -9,7 +9,7 @@ const confirmacao = (contract: contracts, seller: users, signing: string) =>
     }\nTelefone: ${contract.phone}\nE-mail:${contract.email}\nVendedor: ${seller.name}\n\n*Assinando como:*\n${signing}`
 
 const assine = (signing: string, datelimit: string, link: string, contract: File) =>
-    `*Solicitação de Assinatura da Cooperativa Sion*\n\nClique no link abaixo para visualizar o contrato\n\n${link}\n\nEstará assinando como:\n${signing}\n\nData limite de assinatura:\n${datelimit}\n\n*Não compartilhe esta mensagem*\nPara sua segurança, não encaminhe este e-mail para ninguém.` +
+    `*Solicitação de Assinatura da Cooperativa Sion*\n\nClique no link abaixo para visualizar o contrato\n\n${link}\n\nEstará assinado como:\n${signing}\n\nData limite de assinatura:\n${datelimit}\n\n*Não compartilhe esta mensagem*\nPara sua segurança, não encaminhe este e-mail para ninguém.` +
     `${contract}`
 
 const contato = (phone: number | string, email: string, name: string, message: string) =>
