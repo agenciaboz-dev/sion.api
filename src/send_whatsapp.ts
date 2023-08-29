@@ -39,9 +39,10 @@ router.post("/signed", async (request: Request, response: Response) => {
     const data = request.body
     const [number, number2] = getNumbers(data.number)
 
-    console.log({ data })
-
+    
     const contract = await prisma.contracts.findUnique({ where: { id: Number(data.id) }, include: { seller: true } })
+
+    console.log({ data, contract })
 
     if (contract) {
         const message = await whatsapp.sendMessage(number, templates.confirmacao(contract, contract.seller, data.signing))
