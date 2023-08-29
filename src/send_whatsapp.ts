@@ -5,7 +5,7 @@ import templates from "./templates/whatsapp_templates"
 const router = express.Router()
 const prisma = new PrismaClient()
 
-const getNumbers = (original_number: string | number) => {
+export const getNumbers = (original_number: string | number) => {
     const number = `55${original_number}@c.us`
 
     const prefix = number.slice(2, 4)
