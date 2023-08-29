@@ -31,6 +31,7 @@ whatsapp.on("auth_failure", (message) => {
 })
 
 whatsapp.on("disconnected", () => {
+    console.log("zap disconnected")
     const io = getIoInstance()
     whatsappQrCode = ""
 
