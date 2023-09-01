@@ -75,6 +75,8 @@ router.post("/contract", async (request: Request, response: Response) => {
     const message = await whatsapp.sendMessage(number, templates.assine(data.signing, data.limit, data.link), { linkPreview: true })
     const message2 = await whatsapp.sendMessage(number2, templates.assine(data.signing, data.limit, data.link), { linkPreview: true })
 
+    // sendMail(data.signing, "contrato", "") qual é o template? remover da api antiga
+
     response.json({ message, message2 })
 })
 

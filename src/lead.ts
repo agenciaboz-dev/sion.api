@@ -4,6 +4,7 @@ import { sendMail } from "./scripts/mail"
 import { getNumbers } from "./send_messages"
 import { whatsapp } from "./whatsapp"
 import whatsapp_templates from "./templates/whatsapp_templates"
+import { email_formulario_contato } from "./templates/formulario-contato"
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -22,7 +23,12 @@ router.post("/", async (request: Request, response: Response) => {
 
     const message = await whatsapp.sendMessage(number, whatsapp_templates.contato(data.phone, data.mail, data.name, data.message))
     const message2 = await whatsapp.sendMessage(number2, whatsapp_templates.contato(data.phone, data.mail, data.name, data.message))
-    const mail = await sendMail("cooperativa@sionenergia.com.br", "Novo contato pelo site", JSON.stringify(data, null, 4), html)
+    const mail = await sendMail(
+        "cooperativa@sionenergia.com.br",
+        "Novo contato pelo site",
+        JSON.stringify(data, null, 4),
+        email_formulario_contato(data.phone, data.mail, data.name, data.message)
+    )
     response.json(mail)
 })
 
