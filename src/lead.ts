@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
 import { sendMail } from "./scripts/mail"
-import { getNumbers } from "./send_whatsapp"
+import { getNumbers } from "./send_messages"
 import { whatsapp } from "./whatsapp"
 import whatsapp_templates from "./templates/whatsapp_templates"
 const router = express.Router()

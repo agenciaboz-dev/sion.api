@@ -8,7 +8,7 @@ import settings from "./src/settings"
 import texts from "./src/texts"
 import images from "./src/images"
 import boards from "./src/boards"
-import send_whatsapp from "./src/send_whatsapp"
+import send_whatsapp from "./src/send_messages"
 import logs from "./src/logs"
 import lead from "./src/lead"
 

@@ -2,6 +2,8 @@ import express, { Express, Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
 import { whatsapp } from "./whatsapp"
 import templates from "./templates/whatsapp_templates"
+import { sendMail } from "./scripts/mail"
+import { confasn } from "./templates/email-confirmacao-assinatura"
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -47,6 +49,9 @@ router.post("/signed", async (request: Request, response: Response) => {
     if (contract) {
         const message = await whatsapp.sendMessage(number, templates.confirmacao(contract, contract.seller, data.signing))
         const message2 = await whatsapp.sendMessage(number2, templates.confirmacao(contract, contract.seller, data.signing))
+
+        const signing = await prisma.contracts.findFirst({where: {OR: [{phone: number}, {phone: number2}]}}) || await prisma.users.findFirst({where: {OR: [{phone: number}, {phone: number2}]}})
+        sendMail(signing!.email, "Assinatura confirmada", "Olá! Sua assinatura foi confirmada.", confasn)
 
         response.json({ message, message2 })
     } else {
