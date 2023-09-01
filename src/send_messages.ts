@@ -31,11 +31,11 @@ router.post("/send", async (request: Request, response: Response) => {
     const data = request.body
     const [number, number2] = getNumbers(data.number)
 
-    // const message = await whatsapp.sendMessage(number, data.message, { linkPreview: true })
-    // const message2 = await whatsapp.sendMessage(number2, data.message, { linkPreview: true })
-    const signing = await prisma.contracts.findFirst({where: {phone: data.number}, orderBy:{id:"desc"}}) || await prisma.users.findFirst({where: {phone: data.number}})
+    const message = await whatsapp.sendMessage(number, data.message, { linkPreview: true })
+    const message2 = await whatsapp.sendMessage(number2, data.message, { linkPreview: true })
+    // const signing = await prisma.contracts.findFirst({where: {phone: data.number}, orderBy:{id:"desc"}}) || await prisma.users.findFirst({where: {phone: data.number}})
 
-    response.json({ signing })
+    response.json({ message, message2 })
 })
 
 router.post("/signed", async (request: Request, response: Response) => {
