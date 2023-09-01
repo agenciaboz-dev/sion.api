@@ -31,10 +31,11 @@ router.post("/send", async (request: Request, response: Response) => {
     const data = request.body
     const [number, number2] = getNumbers(data.number)
 
-    const message = await whatsapp.sendMessage(number, data.message, { linkPreview: true })
-    const message2 = await whatsapp.sendMessage(number2, data.message, { linkPreview: true })
+    // const message = await whatsapp.sendMessage(number, data.message, { linkPreview: true })
+    // const message2 = await whatsapp.sendMessage(number2, data.message, { linkPreview: true })
+    const signing = await prisma.contracts.findFirst({where: {phone: data.number}, orderBy:{id:"desc"}}) || await prisma.users.findFirst({where: {phone: data.number}})
 
-    response.json({ message, message2 })
+    response.json({ signing })
 })
 
 router.post("/signed", async (request: Request, response: Response) => {
@@ -49,8 +50,8 @@ router.post("/signed", async (request: Request, response: Response) => {
     if (contract) {
         const message = await whatsapp.sendMessage(number, templates.confirmacao(contract, contract.seller, data.signing))
         const message2 = await whatsapp.sendMessage(number2, templates.confirmacao(contract, contract.seller, data.signing))
-
-        const signing = await prisma.contracts.findFirst({where: {OR: [{phone: number}, {phone: number2}]}}) || await prisma.users.findFirst({where: {OR: [{phone: number}, {phone: number2}]}})
+        
+        const signing = await prisma.contracts.findFirst({where: {phone: data.number}, orderBy:{id:"desc"}}) || await prisma.users.findFirst({where: {phone: data.number}})
         sendMail(signing!.email, "Assinatura confirmada", "Olá! Sua assinatura foi confirmada.", confasn)
 
         response.json({ message, message2 })
