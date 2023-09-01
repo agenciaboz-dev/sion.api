@@ -12,7 +12,15 @@ router.get("/", async (request: Request, response: Response) => {
 router.post("/rate", async (request: Request, response: Response) => {
     const data = request.body
 
-    const settings = await prisma.settings.update({ data: { rate: Number(data.rate) }, where: { id: 1 } })
+    const settings = await prisma.settings.update({
+        data: {
+            greenFlagRate: Number(data.greenFlagRate),
+            yellowFlagRate: Number(data.yellowFlagRate),
+            redFlagRate: Number(data.redFlagRate),
+            red2FlagRate: Number(data.red2FlagRate),
+        },
+        where: { id: 1 },
+    })
     response.json(settings)
 })
 
