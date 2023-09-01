@@ -4,6 +4,7 @@ import { whatsapp } from "./whatsapp"
 import templates from "./templates/whatsapp_templates"
 import { sendMail } from "./scripts/mail"
 import { confasn } from "./templates/email-confirmacao-assinatura"
+import { email_confirmacao_assinatura } from "./templates/confirmacao-assinatura"
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -42,7 +43,6 @@ router.post("/signed", async (request: Request, response: Response) => {
     const data = request.body
     const [number, number2] = getNumbers(data.number)
 
-    
     const contract = await prisma.contracts.findUnique({ where: { id: Number(data.id) }, include: { seller: true } })
 
     console.log({ data, contract })
@@ -50,9 +50,16 @@ router.post("/signed", async (request: Request, response: Response) => {
     if (contract) {
         const message = await whatsapp.sendMessage(number, templates.confirmacao(contract, contract.seller, data.signing))
         const message2 = await whatsapp.sendMessage(number2, templates.confirmacao(contract, contract.seller, data.signing))
-        
-        const signing = await prisma.contracts.findFirst({where: {phone: data.number}, orderBy:{id:"desc"}}) || await prisma.users.findFirst({where: {phone: data.number}})
-        sendMail(signing!.email, "Assinatura confirmada", "Olá! Sua assinatura foi confirmada.", confasn)
+
+        const signing =
+            (await prisma.contracts.findFirst({ where: { phone: data.number }, orderBy: { id: "desc" } })) ||
+            (await prisma.users.findFirst({ where: { phone: data.number } }))
+        sendMail(
+            signing!.email,
+            "Assinatura confirmada",
+            "Olá! Sua assinatura foi confirmada.",
+            email_confirmacao_assinatura(contract, contract.seller, signing!.email)
+        )
 
         response.json({ message, message2 })
     } else {
