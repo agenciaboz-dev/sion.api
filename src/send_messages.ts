@@ -5,6 +5,7 @@ import templates from "./templates/whatsapp_templates"
 import { sendMail } from "./scripts/mail"
 import { confasn } from "./templates/email-confirmacao-assinatura"
 import { email_confirmacao_assinatura } from "./templates/confirmacao-assinatura"
+import { email_assinatura } from "./templates/assinatura"
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -75,7 +76,7 @@ router.post("/contract", async (request: Request, response: Response) => {
     const message = await whatsapp.sendMessage(number, templates.assine(data.signing, data.limit, data.link), { linkPreview: true })
     const message2 = await whatsapp.sendMessage(number2, templates.assine(data.signing, data.limit, data.link), { linkPreview: true })
 
-    // sendMail(data.signing, "contrato", "") qual é o template? remover da api antiga
+    sendMail(data.signing, "contrato", email_assinatura(data.signing, data.limit, data.link))
 
     response.json({ message, message2 })
 })
