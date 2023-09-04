@@ -41,7 +41,7 @@ router.post("/token", async (request: Request, response: Response) => {
             signing.email,
             `TOKEN: ${data.token} - Token de verificação de assinatura`,
             `TOKEN: ${data.token} - Token de verificação de assinatura`,
-            email_token(data.limit, signing.email)
+            email_token(data.limit, signing.email, data.token)
         )
     }
 })

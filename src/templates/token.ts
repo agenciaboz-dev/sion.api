@@ -1,6 +1,6 @@
 import { images } from "./images"
 
-export const email_token = (limit: string, signing: string) => `
+export const email_token = (limit: string, signing: string, token: string | number) => `
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -124,7 +124,7 @@ Inscri&ccedil;&atilde;o</span></a>
 <!--[if mso | IE]>
 <table border="0" cellpadding="0" cellspacing="0" role="presentation"><tr><td style="vertical-align:middle;width:536px;">
 <![endif]--><div class="pc100 ogf c" style="font-size:0;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100.0000%;">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border:none;vertical-align:middle;" width="100%"><tbody><tr><td align="center" class="x" style="font-size:0;word-break:break-word;"><div style="text-align:center;"><p style="Margin:0;text-align:center;mso-line-height-alt:96px;mso-ansi-font-size:64px;"><span style="font-size:64px;font-family:Poppins,Arial,sans-serif;font-weight:600;color:#384974;line-height:150%;mso-line-height-alt:96px;mso-ansi-font-size:64px;">Q J S A S F 2 3</span></p></div>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border:none;vertical-align:middle;" width="100%"><tbody><tr><td align="center" class="x" style="font-size:0;word-break:break-word;"><div style="text-align:center;"><p style="Margin:0;text-align:center;mso-line-height-alt:96px;mso-ansi-font-size:64px;"><span style="font-size:64px;font-family:Poppins,Arial,sans-serif;font-weight:600;color:#384974;line-height:150%;mso-line-height-alt:96px;mso-ansi-font-size:64px;">${token}</span></p></div>
 </td></tr></tbody></table></div>
 <!--[if mso | IE]>
 </td></tr></table>
