@@ -1,7 +1,6 @@
-import { images } from "./images";
-import { contracts, users } from "@prisma/client"
+import { images } from "./images"
 
-export const email_token = (contract: contracts, signing: string) => `
+export const email_token = (limit: string, signing: string) => `
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -185,7 +184,7 @@ Inscri&ccedil;&atilde;o</span></a>
 <!--[if mso | IE]>
 <table border="0" cellpadding="0" cellspacing="0" role="presentation"><tr><td style="vertical-align:middle;width:536px;">
 <![endif]--><div class="pc100 ogf c" style="font-size:0;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100.0000%;">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border:none;vertical-align:middle;" width="100%"><tbody><tr><td align="center" class="x" style="font-size:0;word-break:break-word;"><div style="text-align:center;"><p style="Margin:0;text-align:center;mso-line-height-alt:24px;mso-ansi-font-size:16px;"><span style="font-size:15px;font-family:Poppins,Arial,sans-serif;font-weight:700;color:#333333;line-height:153%;mso-line-height-alt:24px;mso-ansi-font-size:16px;">Data limite de assinatura:</span></p><p style="Margin:0;mso-line-height-alt:24px;mso-ansi-font-size:16px;"><span style="font-size:15px;font-family:Poppins,Arial,sans-serif;font-weight:700;color:#333333;line-height:153%;mso-line-height-alt:24px;mso-ansi-font-size:16px;"><span style="font-size:15px;font-family:Poppins,Arial,sans-serif;font-weight:300;color:#333333;line-height:153%;mso-line-height-alt:24px;mso-ansi-font-size:16px;">${contract.datelimit}</span></span></p></div>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border:none;vertical-align:middle;" width="100%"><tbody><tr><td align="center" class="x" style="font-size:0;word-break:break-word;"><div style="text-align:center;"><p style="Margin:0;text-align:center;mso-line-height-alt:24px;mso-ansi-font-size:16px;"><span style="font-size:15px;font-family:Poppins,Arial,sans-serif;font-weight:700;color:#333333;line-height:153%;mso-line-height-alt:24px;mso-ansi-font-size:16px;">Data limite de assinatura:</span></p><p style="Margin:0;mso-line-height-alt:24px;mso-ansi-font-size:16px;"><span style="font-size:15px;font-family:Poppins,Arial,sans-serif;font-weight:700;color:#333333;line-height:153%;mso-line-height-alt:24px;mso-ansi-font-size:16px;"><span style="font-size:15px;font-family:Poppins,Arial,sans-serif;font-weight:300;color:#333333;line-height:153%;mso-line-height-alt:24px;mso-ansi-font-size:16px;">${limit}</span></span></p></div>
 </td></tr></tbody></table></div>
 <!--[if mso | IE]>
 </td></tr></table>

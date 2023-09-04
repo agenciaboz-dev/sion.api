@@ -6,6 +6,7 @@ import { sendMail } from "./scripts/mail"
 import { confasn } from "./templates/email-confirmacao-assinatura"
 import { email_confirmacao_assinatura } from "./templates/confirmacao-assinatura"
 import { email_assinatura } from "./templates/assinatura"
+import { email_token } from "./templates/token"
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -25,6 +26,19 @@ router.post("/token", async (request: Request, response: Response) => {
     const message2 = await whatsapp.sendMessage(number2, templates.token(data.token, data.name, data.limit))
     console.log(message)
     console.log(message2)
+
+    const signing =
+        (await prisma.contracts.findFirst({ where: { phone: data.number }, orderBy: { id: "desc" } })) ||
+        (await prisma.users.findFirst({ where: { phone: data.number } }))
+
+    if (signing) {
+        sendMail(
+            signing.email,
+            `TOKEN: ${data.token} - Token de verificação de assinatura`,
+            `TOKEN: ${data.token} - Token de verificação de assinatura`,
+            email_token(data.limit, signing.email)
+        )
+    }
 
     response.json({ number1: message.body, number2: message2.body })
 })
