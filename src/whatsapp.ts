@@ -13,7 +13,7 @@ export const whatsapp = new Client({
 
 whatsapp.on("qr", (qr) => {
     whatsappQrCode = qr
-    qrcode.generate(qr, { small: true })
+    // qrcode.generate(qr, { small: true })
     const io = getIoInstance()
 
     io.emit("zap:qrcode", qr)
