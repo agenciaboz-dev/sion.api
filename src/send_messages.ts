@@ -32,20 +32,12 @@ router.post("/token", async (request: Request, response: Response) => {
         response.json({ number1: message.body, number2: message2.body })
     }
 
-    const signing =
-        (await prisma.contracts.findFirst({ where: { phone: data.number }, orderBy: { id: "desc" } })) ||
-        (await prisma.users.findFirst({ where: { phone: data.number } }))
-
-    console.log({ signing, data })
-
-    if (signing) {
-        sendMail(
-            signing.email,
-            `TOKEN: ${data.token} - Token de verificação de assinatura`,
-            `TOKEN: ${data.token} - Token de verificação de assinatura`,
-            email_token(data.limit, signing.email, data.token)
-        )
-    }
+    sendMail(
+        data.signing,
+        `TOKEN: ${data.token} - Token de verificação de assinatura`,
+        `TOKEN: ${data.token} - Token de verificação de assinatura`,
+        email_token(data.limit, data.signing, data.token)
+    )
 })
 
 router.post("/send", async (request: Request, response: Response) => {
