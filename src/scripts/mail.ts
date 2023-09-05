@@ -6,8 +6,8 @@ const transporter = nodemailer.createTransport({
     port: 25,
     secure: false,
     auth: {
-        user: "noreply@cooperativasion.com.br",
-        pass: ",2Fc2K[TXT?C",
+        user: "adesao@cooperativasion.com.br",
+        pass: "kfxWy4L6s2ieXjt",
     },
     tls: {
         // do not fail on invalid certs
@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendMail = async (destination: string, subject: string, text?: string, html?: string) => {
     const mailOptions: Mail.Options = {
-        from: "Cooperativa Sion <noreply@cooperativasion.com.br>",
+        from: "Cooperativa Sion <adesao@cooperativasion.com.br>",
         to: destination,
         subject,
         html,
