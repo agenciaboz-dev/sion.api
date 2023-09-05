@@ -95,7 +95,7 @@ router.post("/contract", async (request: Request, response: Response) => {
 
         response.json({ message, message2 })
     }
-    sendMail(data.signing, "Solicitação de Assinatura", "Solicitação de Assinatura da Cooperativa Sion", email_assinatura(data.signing, data.limit, data.link))
+    sendMail(data.signing, "Ficha de Matrícula", "Solicitação de Assinatura da Cooperativa Sion", email_assinatura(data.signing, data.limit, data.link))
 })
 
 router.post("/new", async (request: Request, response: Response) => {
