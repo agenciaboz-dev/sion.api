@@ -213,48 +213,48 @@ Inscri&ccedil;&atilde;o</span></a>
 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-hide:all;border-collapse:collapse;border-spacing:0;"><tbody style="mso-hide:all;"><tr style="mso-hide:all;"><td style="mso-hide:all;width:74px;" width="74"> <a href="https://cooperativasion.com.br/" target="_blank" title style="mso-hide:all;"> <img alt src="${images.footer_logo_dark}" style="mso-hide:all;border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" title width="74" height="auto"></a>
 </td></tr></tbody></table>
 </td></tr><tr><td align="center" class="x  m" style="font-size:0;padding-bottom:16px;word-break:break-word;"><div style="text-align:center;"><p style="Margin:0;text-align:center;mso-line-height-alt:16px;mso-ansi-font-size:14px;"><span style="font-size:13px;font-family:Inter,Arial,sans-serif;font-weight:400;color:#4d4d4d;line-height:123%;mso-line-height-alt:16px;mso-ansi-font-size:14px;">Cooperativa SION</span></p></div>
-</td></tr><tr><td align="center" class="x  m" style="font-size:0;padding-bottom:16px;word-break:break-word;"><div style="text-align:center;"><p style="Margin:0;text-align:center;mso-line-height-alt:16px;mso-ansi-font-size:14px;"><span style="font-size:13px;font-family:Inter,Arial,sans-serif;font-weight:400;color:#aaaaaa;line-height:123%;text-decoration:underline;mso-line-height-alt:16px;mso-ansi-font-size:14px;"><a href="https://www.google.com/maps/place/Sion+Energia/@-25.4083714,-49.2561871,17z/data=!3m1!4b1!4m5!3m4!1s0x94dce58c4581bba5:0xac193fe861a14dc3!8m2!3d-25.4083671!4d-49.2539982?hl=pt-BR" style="color:#aaaaaa;text-decoration:underline;" target="_blank">Rua Dr. Manoel Pedro, 365, 21&ordm; andar. Curitiba - PR</a></span></p></div>
+</td></tr><tr><td align="center" class="x  m" style="font-size:0;padding-bottom:16px;word-break:break-word;"><div style="text-align:center;"><p style="Margin:0;text-align:center;mso-line-height-alt:16px;mso-ansi-font-size:14px;"><span style="font-size:13px;font-family:Inter,Arial,sans-serif;font-weight:400;color:#aaaaaa;line-height:123%;text-decoration:underline;mso-line-height-alt:16px;mso-ansi-font-size:14px;"><a href="${data.address_link}" style="color:#aaaaaa;text-decoration:underline;" target="_blank">${data.address}</a></span></p></div>
 </td></tr><tr><td align="center" class="o" style="font-size:0;padding:0;padding-bottom:0;word-break:break-word;">
 <!--[if mso | IE]>
 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"><tr><td>
 <![endif]-->
 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;"><tbody><tr class="e  dh-1 m"><td style="padding:0 16px 0 0;vertical-align:middle;">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:20px;"><tbody><tr><td style="font-size:0;height:20px;vertical-align:middle;width:20px;"> <a href="https://www.instagram.com/sion_energia/" target="_blank"> <img alt="Instagram" title height="20" src="${images.instagram}" style="display:block;" width="20"></a>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:20px;"><tbody><tr><td style="font-size:0;height:20px;vertical-align:middle;width:20px;"> <a href="${data.instagram_link}" target="_blank"> <img alt="Instagram" title height="20" src="${images.instagram}" style="display:block;" width="20"></a>
 </td></tr></tbody></table>
 </td></tr></tbody></table>
 <!--[if mso | IE]>
 </td><td>
 <![endif]-->
 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;"><tbody><tr class="e  dh-1 m"><td style="padding:0 16px 0 0;vertical-align:middle;">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:20px;"><tbody><tr><td style="font-size:0;height:20px;vertical-align:middle;width:20px;"> <a href="https://www.facebook.com/SionEnergia" target="_blank"> <img alt="Facebook" title height="20" src="${images.facebook}" style="display:block;" width="20"></a>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:20px;"><tbody><tr><td style="font-size:0;height:20px;vertical-align:middle;width:20px;"> <a href="${data.facebook_link}" target="_blank"> <img alt="Facebook" title height="20" src="${images.facebook}" style="display:block;" width="20"></a>
 </td></tr></tbody></table>
 </td></tr></tbody></table>
 <!--[if mso | IE]>
 </td><td>
 <![endif]-->
 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;"><tbody><tr class="e  dh-1 m"><td style="padding:0 16px 0 0;vertical-align:middle;">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:20px;"><tbody><tr><td style="font-size:0;height:20px;vertical-align:middle;width:20px;"> <a href="https://www.linkedin.com/company/sion-energia/" target="_blank"> <img alt="Linkedin" title height="20" src="${images.linkedin}" style="display:block;" width="20"></a>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:20px;"><tbody><tr><td style="font-size:0;height:20px;vertical-align:middle;width:20px;"> <a href="${data.linkedin_link}" target="_blank"> <img alt="Linkedin" title height="20" src="${images.linkedin}" style="display:block;" width="20"></a>
 </td></tr></tbody></table>
 </td></tr></tbody></table>
 <!--[if mso | IE]>
 </td><td>
 <![endif]-->
 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;"><tbody><tr class="e  ds-1 m" style="mso-hide:all;display:none;height:0;overflow:hidden;"><td style="mso-hide:all;padding:0 16px 0 0;vertical-align:middle;" valign="middle">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-hide:all;width:20px;" width="20"><tbody style="mso-hide:all;"><tr style="mso-hide:all;"><td style="mso-hide:all;font-size:0;height:20px;vertical-align:middle;width:20px;" width="20" height="20" valign="middle"> <a href="https://www.instagram.com/sion_energia/" target="_blank" style="mso-hide:all;"> <img alt="Instagram" title height="20" src="${images.instagram_dark}" style="mso-hide:all;display:block;" width="20"></a>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-hide:all;width:20px;" width="20"><tbody style="mso-hide:all;"><tr style="mso-hide:all;"><td style="mso-hide:all;font-size:0;height:20px;vertical-align:middle;width:20px;" width="20" height="20" valign="middle"> <a href="${data.instagram_link}" target="_blank" style="mso-hide:all;"> <img alt="Instagram" title height="20" src="${images.instagram_dark}" style="mso-hide:all;display:block;" width="20"></a>
 </td></tr></tbody></table>
 </td></tr></tbody></table>
 <!--[if mso | IE]>
 </td><td>
 <![endif]-->
 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;"><tbody><tr class="e  ds-1 m" style="mso-hide:all;display:none;height:0;overflow:hidden;"><td style="mso-hide:all;padding:0 16px 0 0;vertical-align:middle;" valign="middle">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-hide:all;width:20px;" width="20"><tbody style="mso-hide:all;"><tr style="mso-hide:all;"><td style="mso-hide:all;font-size:0;height:20px;vertical-align:middle;width:20px;" width="20" height="20" valign="middle"> <a href="https://www.facebook.com/SionEnergia" target="_blank" style="mso-hide:all;"> <img alt="Facebook" title height="20" src="${images.facebook_dark}" style="mso-hide:all;display:block;" width="20"></a>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-hide:all;width:20px;" width="20"><tbody style="mso-hide:all;"><tr style="mso-hide:all;"><td style="mso-hide:all;font-size:0;height:20px;vertical-align:middle;width:20px;" width="20" height="20" valign="middle"> <a href="${data.facebook_link}" target="_blank" style="mso-hide:all;"> <img alt="Facebook" title height="20" src="${images.facebook_dark}" style="mso-hide:all;display:block;" width="20"></a>
 </td></tr></tbody></table>
 </td></tr></tbody></table>
 <!--[if mso | IE]>
 </td><td>
 <![endif]-->
 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;"><tbody><tr class="e  ds-1" style="mso-hide:all;display:none;height:0;overflow:hidden;"><td style="mso-hide:all;padding:0;padding-right:0;vertical-align:middle;" valign="middle">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-hide:all;width:20px;" width="20"><tbody style="mso-hide:all;"><tr style="mso-hide:all;"><td style="mso-hide:all;font-size:0;height:20px;vertical-align:middle;width:20px;" width="20" height="20" valign="middle"> <a href="https://www.linkedin.com/company/sion-energia/" target="_blank" style="mso-hide:all;"> <img alt="Linkedin" title height="20" src="${images.linkedin_dark}" style="mso-hide:all;display:block;" width="20"></a>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-hide:all;width:20px;" width="20"><tbody style="mso-hide:all;"><tr style="mso-hide:all;"><td style="mso-hide:all;font-size:0;height:20px;vertical-align:middle;width:20px;" width="20" height="20" valign="middle"> <a href="${data.linkedin_link}" target="_blank" style="mso-hide:all;"> <img alt="Linkedin" title height="20" src="${images.linkedin_dark}" style="mso-hide:all;display:block;" width="20"></a>
 </td></tr></tbody></table>
 </td></tr></tbody></table>
 <!--[if mso | IE]>
