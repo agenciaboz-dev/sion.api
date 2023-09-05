@@ -36,6 +36,8 @@ router.post("/token", async (request: Request, response: Response) => {
         (await prisma.contracts.findFirst({ where: { phone: data.number }, orderBy: { id: "desc" } })) ||
         (await prisma.users.findFirst({ where: { phone: data.number } }))
 
+    console.log({ signing, data })
+
     if (signing) {
         sendMail(
             signing.email,
