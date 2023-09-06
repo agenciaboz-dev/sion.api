@@ -4,7 +4,7 @@ const router = express.Router()
 const prisma = new PrismaClient()
 
 router.get("/", async (request: Request, response: Response) => {
-    const contracts = await prisma.contracts.findMany({ include: { seller: true, status: true } })
+    const contracts = await prisma.contracts.findMany({ where: { deleted: false }, include: { seller: true, status: true } })
     response.json(contracts)
 })
 
@@ -21,7 +21,7 @@ router.post("/id", async (request: Request, response: Response) => {
 router.post("/seller", async (request: Request, response: Response) => {
     const data = request.body
     const contracts = await prisma.contracts.findMany({
-        where: { seller_id: Number(data.id) },
+        where: { seller_id: Number(data.id), deleted: false },
         include: { seller: true, status: true },
     })
 
@@ -44,7 +44,7 @@ router.post("/search", async (request: Request, response: Response) => {
     const data = request.body
 
     const contracts = await prisma.contracts.findMany({
-        where: { name: { contains: data.search.trim() } },
+        where: { name: { contains: data.search.trim() }, deleted: false },
         include: { seller: true, status: true },
     })
 
