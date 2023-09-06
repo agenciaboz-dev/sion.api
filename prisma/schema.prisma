@@ -44,6 +44,7 @@ model contracts {
     omie        omie?
     financial   financial?
     logs        logs[]
+    deleted     Boolean     @default(false)
 }
 
 model emails {
