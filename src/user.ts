@@ -4,7 +4,7 @@ const router = express.Router()
 const prisma = new PrismaClient()
 
 router.get("/", async (request: Request, response: Response) => {
-    const users = await prisma.users.findMany({ include: { contracts: true } })
+    const users = await prisma.users.findMany({ include: { contracts: { where: { deleted: false } } } })
     response.json(users)
 })
 
@@ -12,7 +12,7 @@ router.post("/id", async (request: Request, response: Response) => {
     const data = request.body
     const user = await prisma.users.findUnique({
         where: { id: Number(data.id) },
-        include: { contracts: { include: { seller: true } } },
+        include: { contracts: { where: { deleted: false }, include: { seller: true } } },
     })
 
     response.json(user)
@@ -35,7 +35,7 @@ router.post("/update", async (request: Request, response: Response) => {
             role: data.role,
         },
         where: { id: data.id },
-        include: { contracts: { include: { seller: true } } },
+        include: { contracts: { where: { deleted: false }, include: { seller: true } } },
     })
 
     response.json(user)
@@ -47,7 +47,7 @@ router.post("/password", async (request: Request, response: Response) => {
     const user = await prisma.users.update({
         data: { password: data.password },
         where: { id: data.id },
-        include: { contracts: { include: { seller: true } } },
+        include: { contracts: { where: { deleted: false }, include: { seller: true } } },
     })
 
     response.json(user)
@@ -59,7 +59,7 @@ router.post("/email", async (request: Request, response: Response) => {
     const user = await prisma.users.update({
         data: { email: data.email },
         where: { id: data.id },
-        include: { contracts: { include: { seller: true } } },
+        include: { contracts: { where: { deleted: false }, include: { seller: true } } },
     })
 
     response.json(user)
@@ -91,7 +91,7 @@ router.post("/new", async (request: Request, response: Response) => {
             phone: data.phone,
             rg: data.rg,
         },
-        include: { contracts: { include: { seller: true } } },
+        include: { contracts: { where: { deleted: false }, include: { seller: true } } },
     })
 
     response.json(user)
@@ -102,7 +102,7 @@ router.post("/search", async (request: Request, response: Response) => {
 
     const contracts = await prisma.users.findMany({
         where: { name: { contains: data.search.trim() } },
-        include: { contracts: { include: { seller: true } } },
+        include: { contracts: { where: { deleted: false }, include: { seller: true } } },
     })
 
     response.json(contracts)

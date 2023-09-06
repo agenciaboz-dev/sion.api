@@ -52,7 +52,7 @@ router.post("/search", async (request: Request, response: Response) => {
 })
 
 router.get("/status", async (request: Request, response: Response) => {
-    const status = await prisma.contractStatus.findMany({ include: { contracts: true } })
+    const status = await prisma.contractStatus.findMany({ include: { contracts: { where: { deleted: false } } } })
     response.json(status)
 })
 
