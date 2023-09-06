@@ -70,16 +70,13 @@ router.post("/signed", async (request: Request, response: Response) => {
         }
     }
 
-    const signing =
-        (await prisma.contracts.findFirst({ where: { phone: data.number }, orderBy: { id: "desc" } })) ||
-        (await prisma.users.findFirst({ where: { phone: data.number } }))
 
-    if (contract && signing)
+    if (contract)
         sendMail(
-            signing.email,
+            data.signing,
             "Assinatura confirmada",
             "Olá! Sua assinatura foi confirmada.",
-            email_confirmacao_assinatura(contract, contract.seller, signing.email)
+            email_confirmacao_assinatura(contract, contract.seller, data.signing)
         )
 })
 
