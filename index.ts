@@ -24,14 +24,14 @@ app.use(cookieParser())
 app.use(fileUpload())
 app.use("/api", router)
 app.use("/static", express.static("static"))
-whatsapp.initialize()
+// whatsapp.initialize()
 
 try {
     const server = https.createServer(
         {
             key: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/privkey.pem", "utf8"),
             cert: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/cert.pem", "utf8"),
-            ca: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/chain.pem", "utf8"),
+            ca: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/fullchain.pem", "utf8")
         },
         app
     )
