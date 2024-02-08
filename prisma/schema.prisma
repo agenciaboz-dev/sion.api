@@ -160,3 +160,9 @@ model boards {
     name            String
     access          Int         @default(0)
 }
+
+model customers {
+    id              Int         @id @default(autoincrement())
+    name            String
+    image           String      @db.Text
+}

@@ -11,6 +11,7 @@ import boards from "./src/boards"
 import send_whatsapp from "./src/send_messages"
 import logs from "./src/logs"
 import lead from "./src/lead"
+import customers from "./src/customers"
 
 export const router = express.Router()
 
@@ -30,6 +31,7 @@ router.use("/whatsapp", send_whatsapp)
 router.use("/boards", boards)
 router.use("/logs", logs)
 router.use("/lead", lead)
+router.use("/customers", customers)
 
 router.post("/cep", (request, response, next) => {
     const data = request.body
