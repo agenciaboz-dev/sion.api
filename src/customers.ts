@@ -10,9 +10,10 @@ router.get("/", async (request: Request, response: Response) => {
 
 router.post("/", async (request: Request, response: Response) => {
     const data = request.body as customerForm
+    console.log(data)
 
     try {
-        const customer = await prisma.customers.create({ data: { image: data.image, name: data.name } })
+        const customer = await prisma.customers.create({ data: { image: data.image } })
         response.status(200).json(customer)
     } catch (error) {
         console.log(error)
@@ -25,7 +26,7 @@ router.patch("/", async (request: Request, response: Response) => {
     console.log(data)
 
     try {
-        const customer = await prisma.customers.update({ data: { image: data.image, name: data.name }, where: { id: data.id } })
+        const customer = await prisma.customers.update({ data: { image: data.image }, where: { id: data.id } })
         response.status(200).json(customer)
     } catch (error) {
         console.log(error)
