@@ -12,15 +12,26 @@ router.get("/", async (request: Request, response: Response) => {
 })
 
 router.post("/", async (request: Request, response: Response) => {
-    const data = request.body as customerForm
-    console.log(data)
-
-    try {
-        const customer = await prisma.customers.create({ data: { image: data.image } })
-        response.status(200).json(customer)
-    } catch (error) {
-        console.log(error)
-        response.status(500).json({ error: `Erro no formato dos dados enviados. Detalhes: ${error?.toString()}` })
+    if (request.files) {
+        try {
+            let customer = await prisma.customers.create({ data: { image: "" } })
+            const file = request.files.file as fileUpload.UploadedFile
+            const url = saveImage(`customers/${customer.id}`, file.data, file.name)
+            customer = await prisma.customers.update({ data: { image: url }, where: { id: customer.id } })
+            response.status(200).json(customer)
+        } catch (error) {
+            console.log(error)
+            response.status(500).json({ error: `Erro no formato dos dados enviados. Detalhes: ${error?.toString()}` })
+        }
+    } else {
+        try {
+            const data = request.body as customerForm
+            let customer = await prisma.customers.create({ data: { image: data.image } })
+            response.status(200).json(customer)
+        } catch (error) {
+            console.log(error)
+            response.status(500).json({ error: `Erro no formato dos dados enviados. Detalhes: ${error?.toString()}` })
+        }
     }
 })
 
