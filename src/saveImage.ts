@@ -13,7 +13,8 @@ export const saveImage = (path: string, file: ArrayBuffer, filename: string) => 
     createWriteStream(filepath).write(buffer)
 
     const port = process.env.PORT
-    const url = `${env == "dev" ? `http://localhost:${port}` : `https://app.agencyboz.com:${port}`}/${filepath}`
+    const url = `${env == "dev" ? `http://localhost:${port}` : `https://app.agenciaboz.com.br:${port}`}/${filepath}`
     console.log(url)
     return url
 }
+s
