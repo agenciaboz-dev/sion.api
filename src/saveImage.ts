@@ -17,4 +17,3 @@ export const saveImage = (path: string, file: ArrayBuffer, filename: string) => 
     console.log(url)
     return url
 }
-s
