@@ -11,6 +11,7 @@ import fs from "fs"
 import { whatsapp } from "./src/whatsapp"
 import { Server } from "socket.io"
 import { getIoInstance, handleSocket, initializeIoServer } from "./src/io/socket"
+import { setProd } from "./src/env"
 
 dotenv.config()
 
@@ -31,7 +32,7 @@ try {
         {
             key: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/privkey.pem", "utf8"),
             cert: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/cert.pem", "utf8"),
-            ca: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/fullchain.pem", "utf8")
+            ca: fs.readFileSync("/etc/letsencrypt/live/app.agenciaboz.com.br/fullchain.pem", "utf8"),
         },
         app
     )
@@ -45,6 +46,7 @@ try {
 
     server.listen(port, () => {
         console.log(`[server]: Server is running at https ${port}`)
+        setProd()
     })
 } catch {
     const server = http.createServer(app)

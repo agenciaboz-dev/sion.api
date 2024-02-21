@@ -1,5 +1,8 @@
 import express, { Express, Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
+import { saveImage } from "./saveImage"
+import fileUpload from "express-fileupload"
+
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -22,11 +25,23 @@ router.post("/", async (request: Request, response: Response) => {
 })
 
 router.patch("/", async (request: Request, response: Response) => {
-    const data = request.body as Partial<customerForm> & { id: number }
-    console.log(data)
+    let url: string | undefined = ""
+    let id = 0
+
+    if (request.files) {
+        const data = JSON.parse(request.body.data) as { id: number }
+        console.log(data)
+        const file = request.files.file as fileUpload.UploadedFile
+        url = saveImage(`customers/${data.id}`, file.data, file.name)
+        id = data.id
+    } else {
+        const data = request.body as Partial<customerForm> & { id: number }
+        url = data.image
+        id = data.id
+    }
 
     try {
-        const customer = await prisma.customers.update({ data: { image: data.image }, where: { id: data.id } })
+        const customer = await prisma.customers.update({ data: { image: url }, where: { id } })
         response.status(200).json(customer)
     } catch (error) {
         console.log(error)
